@@ -3,21 +3,29 @@
  *
  *  Created on: Oct 22, 2013
  *      Author: Christopher Boulanger
- *      Description: API, Library to interact with the Geek Box LCD
+ *      Description: API, Library to interact with the Geek Box LCD.
  */
 
-void initSPI();
+#ifndef LCD_H_
+#define LCD_H_
 
 void initLCD();
 
 void clearLCD();
 
-void moveCursorLine1();
+void initSPI();
 
-void moveCursorLine2();
+void line1Cursor();
 
-void writeChar(char asciiChar);
+void line2Cursor();
 
-void writeString(char *string);
+void scrollString(char string1[], char string2[]);
 
-void scrollString(char* string1, char* string2);
+char* rotateString(char string[]);
+
+void writeString(char* strg2Write);
+
+void writeChar(char char2Write);
+
+
+#endif /* LCD_H_ */

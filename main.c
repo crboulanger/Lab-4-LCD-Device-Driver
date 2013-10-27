@@ -1,27 +1,29 @@
+/*
+ * Author: Christopher Boulanger
+ * Created: 22 October 2013
+ * Description: This program is a device driver for initializing SPI for an LCD.
+ * It then scrolls a message on the top line and a message on the bottom line.
+ */
+
 #include <msp430.h> 
-
-#define RS_MASK 0x40
-
+#include "LCD.h"
 /*
  * main.c
  */
 int main(void) {
-    WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
+    WDTCTL = WDTPW | WDTHOLD;        // Stop watchdog timer
 
-	void initSPI();
+    initSPI();
+    initLCD();
+    clearLCD();
 
-	void initLCD();
+    char* string1 = "ECE382 is my favorite class! ";
+    char* string2 = "This is Required Functionality ";
+    scrollString(string1, string2);
 
-	void clearLCD();
+    while(1){
 
-		for (init i=0, i>0, i++){
-	
-			void moveCursorLine1(writeChar,writeString,scrollString);
+    }
 
-			void moveCursorLine2(writeChar,writeString,scrollString);
-
-			return message;
-		}
-	return 0;
+        return 0;
 }
-
