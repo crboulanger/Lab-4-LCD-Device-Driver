@@ -12,9 +12,11 @@ This program uses the LCD.h, LCD.C, and main.c files to run.
 Use these files to implement functions listed in the header file like:
 
   -Initializing, clearing, and scrolling the LCD.
+  
   -Moving the cursor between lines
   
 Further Functionality allows the user to:
   
   -Use buttons to select a message (B Functionality)
+  
   -Change the clock speed  (A Functionality)
