@@ -18,7 +18,7 @@ int main(void) {
     clearLCD();
 
     char* string1 = "ECE382 is my favorite class! ";
-    char* string2 = "This is Required Functionality ";
+    char* string2 = "This is Required Functionality! ";
     scrollString(string1, string2);
 
     while(1){

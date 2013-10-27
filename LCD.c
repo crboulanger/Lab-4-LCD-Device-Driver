@@ -4,7 +4,11 @@
  *  Created on: Oct 22, 2013
  *      Author: Christopher Boulanger
  *      Function: Creates functions used in main.c
+ *      Fixed incompatible data types, and added additional comments
+ *      This is the final program for Required Functionality
  */
+
+
 #include <msp430.h>
 #include "LCD.h"
 
@@ -12,30 +16,44 @@
 
 char LCDCON = 0;
 
-//initialize all of the implementation only functions
-
 void writeCommandNibble(char commandNibble);
+
 void writeCommandByte(char commandByte);
+
 void writeDataByte(char dataByte);
+
 void LCD_write_8(char byteToSend);
+
 void LCD_write_4(char byteToSend);
+
 void SPI_send(char byteToSend);
+
 void set_SS_lo();
+
 void set_SS_hi();
+
+
 
 void clearLCD(){
         writeCommandByte(1);
 }
 
 void initSPI(){
-        UCB0CTL1 |= UCSWRST;
+        UCB0CTL1 |= UCSWRST;	//Assembly code from lab 3 helped alot with this part
+
         UCB0CTL0 |= UCCKPL|UCMSB|UCMST|UCSYNC;
+
         UCB0CTL1 |= UCSSEL1;
+
         UCB0STAT |= UCLISTEN;
+
         P1SEL |= BIT5|BIT6|BIT7;        //Clk(P1.5), SOMI(P1.6), SIMO(P1.7)
         P1SEL2 |= BIT5|BIT6|BIT7;
+
         P2DIR |= BIT1;                //GPIO for SS
+
         UCB0CTL1 &= ~UCSWRST;
+
 }
 
 void line1Cursor(){
@@ -49,7 +67,7 @@ void line2Cursor(){
         //screen is 40 bytes long, this moves it 40 times to get on the second line
         int i;
         for(i = 0; i < 40; i++){
-        	//0x14 is the shift right command
+                //0x14 is the shift right command
                 writeCommandByte(0x14);
         }
 }
@@ -68,22 +86,21 @@ void scrollString(char* line1strg, char* line2strg){
 
         string1++;
         //when the program sees 0 at the end of the string it resets the string
-        	}
         if(*string1 == 0){
                 string1 = line1strg;
                 }
 
-        string2++;
+        string2++; //advance the pointer++
                 if(*string2 == 0){
                 string2 = line2strg;
         }
-                //delays the next shift by 100ms
-    __delay_cycles(102000);
+                //delays the next shift by 102ms// calculations in Lab notebook
+    __delay_cycles(100000);// pretty much determines the cycle speed of the string; 10000cycles is pretty fast;100000 is good; 10000000 is slow.
         }
 }
 
 void writeString(char* strg2Write){
-	//goes to the 0 at the end of the pointer
+        //goes to 0 at the end of the pointer
         while(*strg2Write != 0){
                 writeChar(*strg2Write);
                 strg2Write++;
@@ -127,28 +144,28 @@ void initLCD()
     writeCommandByte(0x02);
 
     SPI_send(0);
-    __delay_cycles(42);
+    __delay_cycles(41);
 }
 
 void writeCommandNibble(char commandNibble)
 {
     LCDCON &= ~RS_MASK;
     LCD_write_4(commandNibble);
-    __delay_cycles(1698);
+    __delay_cycles(1650);//calculations in Lab Notebook
 }
 
 void writeCommandByte(char commandByte)
 {
     LCDCON &= ~RS_MASK;
     LCD_write_8(commandByte);
-    __delay_cycles(1698);
+    __delay_cycles(1650);
 }
 
 void writeDataByte(char dataByte)
 {
     LCDCON |= RS_MASK;
     LCD_write_8(dataByte);
-    __delay_cycles(42);
+    __delay_cycles(41);
 }
 
 void LCD_write_8(char byteToSend)
