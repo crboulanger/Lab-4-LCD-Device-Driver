@@ -1,7 +1,7 @@
 Lab-4-LCD-Device-Driver
 =======================
 
-This is a software device driver program for an LCD screen
+This is a software device driver program for an LCD screen 
 
 Included are libraries for LCD header, main, and implemention.
 
