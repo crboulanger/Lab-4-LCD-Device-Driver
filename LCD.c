@@ -4,8 +4,16 @@
  *  Created on: Oct 22, 2013
  *      Author: Christopher Boulanger
  *      Function: Creates functions used in main.c
+<<<<<<< HEAD
  *      This is B Functionality Implementation
  */
+=======
+ *      Fixed incompatible data types, and added additional comments
+ *      This is the final program for Required Functionality
+ */
+
+
+>>>>>>> ef8570c099904d0551703bcb8c44884d5af77b4f
 #include <msp430.h>
 #include "LCD.h"
 
@@ -17,8 +25,11 @@ void writeCommandNibble(char commandNibble);
 
 void writeCommandByte(char commandByte);
 
+<<<<<<< HEAD
 int getStringLength(char* string);
 
+=======
+>>>>>>> ef8570c099904d0551703bcb8c44884d5af77b4f
 void writeDataByte(char dataByte);
 
 void LCD_write_8(char byteToSend);
@@ -38,7 +49,11 @@ void clearLCD(){
 }
 
 void initSPI(){
+<<<<<<< HEAD
         UCB0CTL1 |= UCSWRST;//Assembly code from lab 3 helped alot with this part
+=======
+        UCB0CTL1 |= UCSWRST;	//Assembly code from lab 3 helped alot with this part
+>>>>>>> ef8570c099904d0551703bcb8c44884d5af77b4f
 
         UCB0CTL0 |= UCCKPL|UCMSB|UCMST|UCSYNC;
 
@@ -56,7 +71,11 @@ void initSPI(){
 }
 
 void line1Cursor(){
+<<<<<<< HEAD
 	//0x02 is the command for resetting the cursor
+=======
+        //0x02 is the command for resetting the cursor
+>>>>>>> ef8570c099904d0551703bcb8c44884d5af77b4f
         writeCommandByte(0x02);
 
 }
@@ -66,12 +85,22 @@ void line2Cursor(){
         //screen is 40 bytes long, this moves it 40 times to get on the second line
         int i;
         for(i = 0; i < 40; i++){
+<<<<<<< HEAD
         	//0x14 is the shift right command
+=======
+                //0x14 is the shift right command
+>>>>>>> ef8570c099904d0551703bcb8c44884d5af77b4f
                 writeCommandByte(0x14);
         }
 }
 
+<<<<<<< HEAD
 void scrollString(char string1[], char string2[]){
+=======
+void scrollString(char* line1strg, char* line2strg){
+        char* string1 = line1strg;
+        char* string2 = line2strg;
+>>>>>>> ef8570c099904d0551703bcb8c44884d5af77b4f
 
         while(1){
 
@@ -81,6 +110,7 @@ void scrollString(char string1[], char string2[]){
         line2Cursor();
         writeString(string2);
 
+<<<<<<< HEAD
         string1 = rotateString(string1);
         string2 = rotateString(string2);
 
@@ -104,6 +134,25 @@ char* rotateString(char string[]){
 
 void writeString(char* strg2Write){
 	 //goes to 0 at the end of the pointer
+=======
+        string1++;
+        //when the program sees 0 at the end of the string it resets the string
+        if(*string1 == 0){
+                string1 = line1strg;
+                }
+
+        string2++; //advance the pointer++
+                if(*string2 == 0){
+                string2 = line2strg;
+        }
+                //delays the next shift by 102ms// calculations in Lab notebook
+    __delay_cycles(100000);// pretty much determines the cycle speed of the string; 10000cycles is pretty fast;100000 is good; 10000000 is slow.
+        }
+}
+
+void writeString(char* strg2Write){
+        //goes to 0 at the end of the pointer
+>>>>>>> ef8570c099904d0551703bcb8c44884d5af77b4f
         while(*strg2Write != 0){
                 writeChar(*strg2Write);
                 strg2Write++;
@@ -154,7 +203,11 @@ void writeCommandNibble(char commandNibble)
 {
     LCDCON &= ~RS_MASK;
     LCD_write_4(commandNibble);
+<<<<<<< HEAD
     __delay_cycles(1650);
+=======
+    __delay_cycles(1650);//calculations in Lab Notebook
+>>>>>>> ef8570c099904d0551703bcb8c44884d5af77b4f
 }
 
 void writeCommandByte(char commandByte)
@@ -232,6 +285,7 @@ void SPI_send(char byteToSend)
 
     set_SS_hi();
 }
+<<<<<<< HEAD
 
 int getStringLength(char* string){
         int count = 0;
@@ -241,3 +295,5 @@ int getStringLength(char* string){
         }
         return count;
 }
+=======
+>>>>>>> ef8570c099904d0551703bcb8c44884d5af77b4f

@@ -1,5 +1,6 @@
 /*
  * Author: Christopher Boulanger
+<<<<<<< HEAD
  * Created: 23 October 2013
  * Description: This program is a device driver for initializing SPI for an LCD.
  * It then scrolls a message on the top line and a message on the bottom line.
@@ -7,12 +8,20 @@
  * After the button push, the LCD displays the corresponding message.
  * Documentation: Worked a lot with C2C Mossing. He is responsible for helping me
  * with the lab requirements and B functionality. He helped
+=======
+ * Created: 22 October 2013
+ * Description: This program is a device driver for initializing SPI for an LCD.
+ * It then scrolls a message on the top line and a message on the bottom line.
+>>>>>>> ef8570c099904d0551703bcb8c44884d5af77b4f
  */
 
 #include <msp430.h> 
 #include "LCD.h"
+<<<<<<< HEAD
 #include "button.h"
 
+=======
+>>>>>>> ef8570c099904d0551703bcb8c44884d5af77b4f
 /*
  * main.c
  */
@@ -22,6 +31,7 @@ int main(void) {
     initSPI();
     initLCD();
     clearLCD();
+<<<<<<< HEAD
     configureP2PinAsButton(BIT3|BIT4|BIT5);
     char string0[] = "ECE382 is my favorite class! ";
 
@@ -49,6 +59,13 @@ int main(void) {
     }
 
     //traps cpu
+=======
+
+    char* string1 = "ECE382 is my favorite class! ";
+    char* string2 = "This is Required Functionality! ";
+    scrollString(string1, string2);
+
+>>>>>>> ef8570c099904d0551703bcb8c44884d5af77b4f
     while(1){
 
     }
